@@ -8,11 +8,11 @@ def pad_number(number, padding):
     return str(number).zfill(padding)
 
 # Main function to rename files
-def process_filenames(directory_path):
-    # Regular expression patterns to match the files
-    video_pattern = re.compile(r'(2023-\d{2}-\d{2})_([A-Z0-9]+)-.*main\.mp4')
-    overlay_pattern = re.compile(r'(2023-\d{2}-\d{2})_([A-Z0-9]+)-.*overlay\.png')
-    image_pattern = re.compile(r'(2023-\d{2}-\d{2})_([A-Z0-9]+)-.*main\.jpg')
+def process_filenames(directory_path, year):
+    # Regular expression patterns to match the files with the year variable
+    video_pattern = re.compile(rf'({year}-\d{{2}}-\d{{2}})_([A-Z0-9]+)-.*main\.mp4')
+    overlay_pattern = re.compile(rf'({year}-\d{{2}}-\d{{2}})_([A-Z0-9]+)-.*overlay\.png')
+    image_pattern = re.compile(rf'({year}-\d{{2}}-\d{{2}})_([A-Z0-9]+)-.*main\.jpg')
 
     # Dictionary to keep track of the incrementing numbers and filenames for each day
     increment_dict = defaultdict(lambda: defaultdict(int))
@@ -69,8 +69,10 @@ def process_filenames(directory_path):
                     break
 
 def main():
-    directory_path = 'H:\\SnapChat Data & Memories Download\\New\\Extracted\\test\\'
-    process_filenames(directory_path)
+    year = '2023'
+    directory_path = 'C:\\path\\to\\extracted\\snapchat\\memories\\'
+
+    process_filenames(directory_path, year)
 
 # Call the main function with the directory path
 if __name__ == "__main__":
