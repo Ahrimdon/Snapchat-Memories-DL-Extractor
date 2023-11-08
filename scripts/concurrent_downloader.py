@@ -63,14 +63,11 @@ def download_file(url, output_dir):
 
     return full_path
 
-def process_file(input_filename, parent_dir, output_dir):
+def process_file(max_concurrent_downloads, input_filename, parent_dir, output_dir):
     full_path_to_file = os.path.join(parent_dir, input_filename)
 
     with open(full_path_to_file, 'r') as f:
         urls = f.read().splitlines()
-
-    # Set the maximum number of concurrent downloads
-    max_concurrent_downloads = 7  # You can adjust this number based on your bandwidth
 
     # Use ThreadPoolExecutor to download files concurrently
     with concurrent.futures.ThreadPoolExecutor(max_workers=max_concurrent_downloads) as executor:
@@ -87,10 +84,12 @@ def process_file(input_filename, parent_dir, output_dir):
 
 def main():
     # dates = '10242023'
+    # Set the maximum number of concurrent downloads
+    max_concurrent_downloads = 7 # You can adjust this number based on your bandwidth
     input_filename = 'urls.txt'
     parent_dir = f"C:\\path\\to\\folder\\"
     output_dir = f"C:\\path\\to\\folder\\"
-    process_file(input_filename, parent_dir, output_dir)
+    process_file(max_concurrent_downloads, input_filename, parent_dir, output_dir)
 
 # This block checks if the script is being executed directly or being imported
 if __name__ == "__main__":
